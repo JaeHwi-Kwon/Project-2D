@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 1941354102}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -451,6 +451,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpd: 5
   jmpForce: 20
+  bullet: {fileID: 7275512941132873459, guid: 23ef11c87bf7fab488db6c411b2fd72f, type: 3}
+  bulletSpd: 0.5
 --- !u!50 &1941354101
 Rigidbody2D:
   serializedVersion: 4
