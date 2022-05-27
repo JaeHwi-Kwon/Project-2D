@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        MousePosition = Input.mousePosition;
+        MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Move();
         Jump();
         Attack();
@@ -58,10 +58,28 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && shootCD >= bulletSpd)
         {
-            GameObject instBullet = Instantiate(bullet);
-            instBullet.transform.position = transform.position;
+            float degree = GetAngle(ConvVec3toVec2(transform.position), MousePosition);
+            Quaternion dir = ConvDirByVec2(degree);
+            GameObject instBullet = Instantiate(bullet, transform.position, dir);
             shootCD = 0;
         }
+    }
+
+    private Vector2 ConvVec3toVec2(Vector3 vec)
+    {
+        return new Vector2(vec.x, vec.y);
+    }
+
+    private float GetAngle(Vector2 start, Vector2 end)
+    {
+        Vector2 deltaVec = end - start;
+        return Mathf.Atan2(deltaVec.y, deltaVec.x) * Mathf.Rad2Deg;
+    }
+
+    private Quaternion ConvDirByVec2(float dir)
+    {
+        Quaternion angle = Quaternion.Euler(0, 0, dir);
+        return angle;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
